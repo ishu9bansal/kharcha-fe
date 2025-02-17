@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CATEGORY, PAYMENT_MODE, RECIPIENT } from '../constants';
 
-const ExpenseForm = ({ onSaveExpense }) => {
+const ExpenseForm = ({ onSaveExpense, disabled }) => {
   const CATEGORIES = Object.values(CATEGORY);
   const PAYMENT_MODES = Object.values(PAYMENT_MODE);
   const RECIPIENTS = Object.values(RECIPIENT);
@@ -38,31 +38,31 @@ const ExpenseForm = ({ onSaveExpense }) => {
   return (
     <form onSubmit={handleSubmit}>
         <label>Title </label>
-        <input type="text" value={title} onChange={e => setTitle(e.target.value)} required />
+        <input type="text" value={title} onChange={e => setTitle(e.target.value)} required disabled={disabled} />
         <br />
         <label>Amount </label>
-        <input type="number" value={amount} onChange={e => setAmount(e.target.value)} required />
+        <input type="number" value={amount} onChange={e => setAmount(e.target.value)} required disabled={disabled} />
         <br />
         <label>Date </label>
-        <input type="date" value={timestamp} onChange={e => setTimestamp(e.target.value)} required />
+        <input type="date" value={timestamp} onChange={e => setTimestamp(e.target.value)} required disabled={disabled} />
         <br />
         <label>Category </label>
-        <select value={category} onChange={e => setCategory(e.target.value)} required >
+        <select value={category} onChange={e => setCategory(e.target.value)} required disabled={disabled} >
           <option value="">Select</option>
           {CATEGORIES.map((category) => <option key={category} value={category}>{category}</option>)}
         </select>
         <br />
         <label>Payment Mode </label>
-        <select value={paymentMode} onChange={e => setPaymentMode(e.target.value)} required >
+        <select value={paymentMode} onChange={e => setPaymentMode(e.target.value)} required disabled={disabled} >
           {PAYMENT_MODES.map((mode) => <option key={mode} value={mode}>{mode}</option>)}
         </select>
         <br />
         <label>Recipient </label>
-        <select value={recipient} onChange={e => setRecipient(e.target.value)} required >
+        <select value={recipient} onChange={e => setRecipient(e.target.value)} required disabled={disabled} >
           {RECIPIENTS.map((recipient) => <option key={recipient} value={recipient}>{recipient}</option>)}
         </select>
         <br />
-        <button type="submit">Save</button>
+        <button type="submit" disabled={disabled}>Save</button>
       </form>
   );
 };
