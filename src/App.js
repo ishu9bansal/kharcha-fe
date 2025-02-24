@@ -4,14 +4,14 @@ import ExpenseForm from './components/ExpenseForm';
 import service from './services/backend';
 
 function App() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [expenses, setExpenses] = useState([]);
 
   const onSaveExpense = async (expense) => {
     setLoading(true);
     await service.addExpense(expense);
+    await fetchExpenses();
     setLoading(false);
-    fetchExpenses();
   };
 
   const fetchExpenses = async () => {
@@ -20,7 +20,10 @@ function App() {
   };
 
   useEffect(() => {
-    fetchExpenses();
+    fetchExpenses().then(() => setLoading(false));
+    return () => {
+      setLoading(true);
+    }
   }, []);
 
   return (
